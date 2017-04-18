@@ -62,6 +62,17 @@ class Client(object):
 
         self.session.add_header('Authorization', "Bearer " + self.auth.access_token)
 
+    def login_with_proxy(self,proxy_info):
+        """Authorize client."""
+        if not self.auth.access_token or \
+                (hasattr(self.auth, 'access_token_expired') and self.auth.access_token_expired):
+            import httplib2
+
+            http = httplib2.Http(proxy_info=proxy_info)
+            self.auth.refresh(http)
+
+        self.session.add_header('Authorization', "Bearer " + self.auth.access_token)
+
     def open(self, title):
         """Opens a spreadsheet.
 
@@ -400,4 +411,14 @@ def authorize(credentials):
     """
     client = Client(auth=credentials)
     client.login()
+    return client
+
+def authorize_with_proxy(credentials,proxy_info):
+    """Login to Google API using OAuth2 credentials.
+    This is a shortcut function which instantiates :class:`Client`
+    and performs login right away.
+    :returns: :class:`Client` instance.
+    """
+    client = Client(auth=credentials)
+    client.login_with_proxy(proxy_info)
     return client
