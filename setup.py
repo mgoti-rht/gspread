@@ -36,7 +36,7 @@ version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
 
 setup(
     name='gspread_with_proxy',
-    packages=['gspread_with_proxy'],
+    packages=['gspread'],
     description=description,
     long_description=long_description,
     version=version,
