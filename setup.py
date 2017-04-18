@@ -35,7 +35,7 @@ version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                     read('gspread/__init__.py'), re.MULTILINE).group(1)
 
 setup(
-    name='gspread_with_proxy',
+    name='gspread',
     packages=['gspread'],
     description=description,
     long_description=long_description,
